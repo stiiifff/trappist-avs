@@ -19,7 +19,7 @@ use eyre::Result;
 use trappist_utils::ecdsastakeregistry::ECDSAStakeRegistry;
 use trappist_utils::{
     ecdsastakeregistry::ISignatureUtils::SignatureWithSaltAndExpiry,
-    trappistservicemanager::{trappistServiceManager, ItrappistServiceManager::Task},
+    TrappistServiceManager::{TrappistServiceManager, ITrappistServiceManager::Task},
 };
 use trappist_utils::{
     parse_trappist_service_manager, parse_stake_registry_address, EigenLayerData,
@@ -60,7 +60,7 @@ async fn sign_and_response_to_task(
     );
     let trappist_contract_address: Address =
         parse_trappist_service_manager("contracts/deployments/trappist/31337.json")?;
-    let trappist_contract = trappistServiceManager::new(trappist_contract_address, &pr);
+    let trappist_contract = TrappistServiceManager::new(trappist_contract_address, &pr);
 
     let response_hash = trappist_contract
         .respondToTask(
@@ -102,8 +102,8 @@ async fn monitor_new_tasks() -> Result<()> {
 
         for log in logs {
             match log.topic0() {
-                Some(&trappistServiceManager::NewTaskCreated::SIGNATURE_HASH) => {
-                    let trappistServiceManager::NewTaskCreated { taskIndex, task } = log
+                Some(&TrappistServiceManager::NewTaskCreated::SIGNATURE_HASH) => {
+                    let TrappistServiceManager::NewTaskCreated { taskIndex, task } = log
                         .log_decode()
                         .expect("Failed to decode log new task created")
                         .inner

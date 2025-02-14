@@ -2,12 +2,12 @@
 /**
 
 ```solidity
-library ItrappistServiceManager {
+library ITrappistServiceManager {
     struct Task { string name; uint32 taskCreatedBlock; }
 }
 ```*/
 #[allow(non_camel_case_types, non_snake_case, clippy::style)]
-pub mod ItrappistServiceManager {
+pub mod ITrappistServiceManager {
     use super::*;
     use alloy::sol_types as alloy_sol_types;
     /**```solidity
@@ -198,9 +198,9 @@ pub mod ItrappistServiceManager {
         }
     };
     use alloy::contract as alloy_contract;
-    /**Creates a new wrapper around an on-chain [`ItrappistServiceManager`](self) contract instance.
+    /**Creates a new wrapper around an on-chain [`ITrappistServiceManager`](self) contract instance.
 
-    See the [wrapper's documentation](`ItrappistServiceManagerInstance`) for more details.*/
+    See the [wrapper's documentation](`ITrappistServiceManagerInstance`) for more details.*/
     #[inline]
     pub const fn new<
         T: alloy_contract::private::Transport + ::core::clone::Clone,
@@ -209,13 +209,13 @@ pub mod ItrappistServiceManager {
     >(
         address: alloy_sol_types::private::Address,
         provider: P,
-    ) -> ItrappistServiceManagerInstance<T, P, N> {
-        ItrappistServiceManagerInstance::<T, P, N>::new(address, provider)
+    ) -> ITrappistServiceManagerInstance<T, P, N> {
+        ITrappistServiceManagerInstance::<T, P, N>::new(address, provider)
     }
-    /**A [`ItrappistServiceManager`](self) instance.
+    /**A [`ITrappistServiceManager`](self) instance.
 
     Contains type-safe methods for interacting with an on-chain instance of the
-    [`ItrappistServiceManager`](self) contract located at a given `address`, using a given
+    [`ITrappistServiceManager`](self) contract located at a given `address`, using a given
     provider `P`.
 
     If the contract bytecode is available (see the [`sol!`](alloy_sol_types::sol!)
@@ -224,16 +224,16 @@ pub mod ItrappistServiceManager {
 
     See the [module-level documentation](self) for all the available methods.*/
     #[derive(Clone)]
-    pub struct ItrappistServiceManagerInstance<T, P, N = alloy_contract::private::Ethereum> {
+    pub struct ITrappistServiceManagerInstance<T, P, N = alloy_contract::private::Ethereum> {
         address: alloy_sol_types::private::Address,
         provider: P,
         _network_transport: ::core::marker::PhantomData<(N, T)>,
     }
     #[automatically_derived]
-    impl<T, P, N> ::core::fmt::Debug for ItrappistServiceManagerInstance<T, P, N> {
+    impl<T, P, N> ::core::fmt::Debug for ITrappistServiceManagerInstance<T, P, N> {
         #[inline]
         fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
-            f.debug_tuple("ItrappistServiceManagerInstance")
+            f.debug_tuple("ITrappistServiceManagerInstance")
                 .field(&self.address)
                 .finish()
         }
@@ -244,11 +244,11 @@ pub mod ItrappistServiceManager {
             T: alloy_contract::private::Transport + ::core::clone::Clone,
             P: alloy_contract::private::Provider<T, N>,
             N: alloy_contract::private::Network,
-        > ItrappistServiceManagerInstance<T, P, N>
+        > ITrappistServiceManagerInstance<T, P, N>
     {
-        /**Creates a new wrapper around an on-chain [`ItrappistServiceManager`](self) contract instance.
+        /**Creates a new wrapper around an on-chain [`ITrappistServiceManager`](self) contract instance.
 
-        See the [wrapper's documentation](`ItrappistServiceManagerInstance`) for more details.*/
+        See the [wrapper's documentation](`ITrappistServiceManagerInstance`) for more details.*/
         #[inline]
         pub const fn new(address: alloy_sol_types::private::Address, provider: P) -> Self {
             Self {
@@ -278,11 +278,11 @@ pub mod ItrappistServiceManager {
             &self.provider
         }
     }
-    impl<T, P: ::core::clone::Clone, N> ItrappistServiceManagerInstance<T, &P, N> {
+    impl<T, P: ::core::clone::Clone, N> ITrappistServiceManagerInstance<T, &P, N> {
         /// Clones the provider and returns a new instance with the cloned provider.
         #[inline]
-        pub fn with_cloned_provider(self) -> ItrappistServiceManagerInstance<T, P, N> {
-            ItrappistServiceManagerInstance {
+        pub fn with_cloned_provider(self) -> ITrappistServiceManagerInstance<T, P, N> {
+            ITrappistServiceManagerInstance {
                 address: self.address,
                 provider: ::core::clone::Clone::clone(&self.provider),
                 _network_transport: ::core::marker::PhantomData,
@@ -295,7 +295,7 @@ pub mod ItrappistServiceManager {
             T: alloy_contract::private::Transport + ::core::clone::Clone,
             P: alloy_contract::private::Provider<T, N>,
             N: alloy_contract::private::Network,
-        > ItrappistServiceManagerInstance<T, P, N>
+        > ITrappistServiceManagerInstance<T, P, N>
     {
         /// Creates a new call builder using this contract instance's provider and address.
         ///
@@ -314,7 +314,7 @@ pub mod ItrappistServiceManager {
             T: alloy_contract::private::Transport + ::core::clone::Clone,
             P: alloy_contract::private::Provider<T, N>,
             N: alloy_contract::private::Network,
-        > ItrappistServiceManagerInstance<T, P, N>
+        > ITrappistServiceManagerInstance<T, P, N>
     {
         /// Creates a new event filter using this contract instance's provider and address.
         ///
@@ -1291,7 +1291,7 @@ pub mod ISignatureUtils {
 
 Generated by the following Solidity interface...
 ```solidity
-library ItrappistServiceManager {
+library ITrappistServiceManager {
     struct Task {
         string name;
         uint32 taskCreatedBlock;
@@ -1320,12 +1320,12 @@ library ISignatureUtils {
     }
 }
 
-interface trappistServiceManager {
+interface TrappistServiceManager {
     event Initialized(uint8 version);
-    event NewTaskCreated(uint32 indexed taskIndex, ItrappistServiceManager.Task task);
+    event NewTaskCreated(uint32 indexed taskIndex, ITrappistServiceManager.Task task);
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
     event RewardsInitiatorUpdated(address prevRewardsInitiator, address newRewardsInitiator);
-    event TaskResponded(uint32 indexed taskIndex, ItrappistServiceManager.Task task, address operator);
+    event TaskResponded(uint32 indexed taskIndex, ITrappistServiceManager.Task task, address operator);
 
     constructor(address _avsDirectory, address _stakeRegistry, address _delegationManager);
 
@@ -1333,7 +1333,7 @@ interface trappistServiceManager {
     function allTaskResponses(address, uint32) external view returns (bytes memory);
     function avsDirectory() external view returns (address);
     function createAVSRewardsSubmission(IRewardsCoordinator.RewardsSubmission[] memory rewardsSubmissions) external;
-    function createNewTask(string memory name) external returns (ItrappistServiceManager.Task memory);
+    function createNewTask(string memory name) external returns (ITrappistServiceManager.Task memory);
     function deregisterOperatorFromAVS(address operator) external;
     function getOperatorRestakedStrategies(address _operator) external view returns (address[] memory);
     function getRestakeableStrategies() external view returns (address[] memory);
@@ -1341,7 +1341,7 @@ interface trappistServiceManager {
     function owner() external view returns (address);
     function registerOperatorToAVS(address operator, ISignatureUtils.SignatureWithSaltAndExpiry memory operatorSignature) external;
     function renounceOwnership() external;
-    function respondToTask(ItrappistServiceManager.Task memory task, uint32 referenceTaskIndex, bytes memory signature) external;
+    function respondToTask(ITrappistServiceManager.Task memory task, uint32 referenceTaskIndex, bytes memory signature) external;
     function rewardsInitiator() external view returns (address);
     function setRewardsInitiator(address newRewardsInitiator) external;
     function stakeRegistry() external view returns (address);
@@ -1496,7 +1496,7 @@ interface trappistServiceManager {
       {
         "name": "",
         "type": "tuple",
-        "internalType": "struct ItrappistServiceManager.Task",
+        "internalType": "struct ITrappistServiceManager.Task",
         "components": [
           {
             "name": "name",
@@ -1633,7 +1633,7 @@ interface trappistServiceManager {
       {
         "name": "task",
         "type": "tuple",
-        "internalType": "struct ItrappistServiceManager.Task",
+        "internalType": "struct ITrappistServiceManager.Task",
         "components": [
           {
             "name": "name",
@@ -1753,7 +1753,7 @@ interface trappistServiceManager {
         "name": "task",
         "type": "tuple",
         "indexed": false,
-        "internalType": "struct ItrappistServiceManager.Task",
+        "internalType": "struct ITrappistServiceManager.Task",
         "components": [
           {
             "name": "name",
@@ -1822,7 +1822,7 @@ interface trappistServiceManager {
         "name": "task",
         "type": "tuple",
         "indexed": false,
-        "internalType": "struct ItrappistServiceManager.Task",
+        "internalType": "struct ITrappistServiceManager.Task",
         "components": [
           {
             "name": "name",
@@ -1848,7 +1848,7 @@ interface trappistServiceManager {
 ]
 ```*/
 #[allow(non_camel_case_types, non_snake_case, clippy::style)]
-pub mod trappistServiceManager {
+pub mod TrappistServiceManager {
     use super::*;
     use alloy::sol_types as alloy_sol_types;
     /// The creation / init bytecode of the contract.
@@ -1961,7 +1961,7 @@ pub mod trappistServiceManager {
     };
     /**Event with signature `NewTaskCreated(uint32,(string,uint32))` and selector `0x58180a6a0403a63c2b5ce4b85d129d46a80d37851b2216bd0a98b59e7309b847`.
     ```solidity
-    event NewTaskCreated(uint32 indexed taskIndex, ItrappistServiceManager.Task task);
+    event NewTaskCreated(uint32 indexed taskIndex, ITrappistServiceManager.Task task);
     ```*/
     #[allow(non_camel_case_types, non_snake_case, clippy::style)]
     #[derive(Clone)]
@@ -1969,14 +1969,14 @@ pub mod trappistServiceManager {
         #[allow(missing_docs)]
         pub taskIndex: u32,
         #[allow(missing_docs)]
-        pub task: <ItrappistServiceManager::Task as alloy::sol_types::SolType>::RustType,
+        pub task: <ITrappistServiceManager::Task as alloy::sol_types::SolType>::RustType,
     }
     #[allow(non_camel_case_types, non_snake_case, clippy::style)]
     const _: () = {
         use alloy::sol_types as alloy_sol_types;
         #[automatically_derived]
         impl alloy_sol_types::SolEvent for NewTaskCreated {
-            type DataTuple<'a> = (ItrappistServiceManager::Task,);
+            type DataTuple<'a> = (ITrappistServiceManager::Task,);
             type DataToken<'a> = <Self::DataTuple<'a> as alloy_sol_types::SolType>::Token<'a>;
             type TopicList = (
                 alloy_sol_types::sol_data::FixedBytes<32>,
@@ -2017,7 +2017,7 @@ pub mod trappistServiceManager {
             #[inline]
             fn tokenize_body(&self) -> Self::DataToken<'_> {
                 (
-                    <ItrappistServiceManager::Task as alloy_sol_types::SolType>::tokenize(
+                    <ITrappistServiceManager::Task as alloy_sol_types::SolType>::tokenize(
                         &self.task,
                     ),
                 )
@@ -2262,7 +2262,7 @@ pub mod trappistServiceManager {
     };
     /**Event with signature `TaskResponded(uint32,(string,uint32),address)` and selector `0x8eb2d2fcccf5801e10ff58cd73e8781ba923122963789378771f03c1148b023e`.
     ```solidity
-    event TaskResponded(uint32 indexed taskIndex, ItrappistServiceManager.Task task, address operator);
+    event TaskResponded(uint32 indexed taskIndex, ITrappistServiceManager.Task task, address operator);
     ```*/
     #[allow(non_camel_case_types, non_snake_case, clippy::style)]
     #[derive(Clone)]
@@ -2270,7 +2270,7 @@ pub mod trappistServiceManager {
         #[allow(missing_docs)]
         pub taskIndex: u32,
         #[allow(missing_docs)]
-        pub task: <ItrappistServiceManager::Task as alloy::sol_types::SolType>::RustType,
+        pub task: <ITrappistServiceManager::Task as alloy::sol_types::SolType>::RustType,
         #[allow(missing_docs)]
         pub operator: alloy::sol_types::private::Address,
     }
@@ -2280,7 +2280,7 @@ pub mod trappistServiceManager {
         #[automatically_derived]
         impl alloy_sol_types::SolEvent for TaskResponded {
             type DataTuple<'a> = (
-                ItrappistServiceManager::Task,
+                ITrappistServiceManager::Task,
                 alloy::sol_types::sol_data::Address,
             );
             type DataToken<'a> = <Self::DataTuple<'a> as alloy_sol_types::SolType>::Token<'a>;
@@ -2324,7 +2324,7 @@ pub mod trappistServiceManager {
             #[inline]
             fn tokenize_body(&self) -> Self::DataToken<'_> {
                 (
-                    <ItrappistServiceManager::Task as alloy_sol_types::SolType>::tokenize(
+                    <ITrappistServiceManager::Task as alloy_sol_types::SolType>::tokenize(
                         &self.task,
                     ),
                     <alloy::sol_types::sol_data::Address as alloy_sol_types::SolType>::tokenize(
@@ -2918,7 +2918,7 @@ pub mod trappistServiceManager {
     };
     /**Function with signature `createNewTask(string)` and selector `0x85edf874`.
     ```solidity
-    function createNewTask(string memory name) external returns (ItrappistServiceManager.Task memory);
+    function createNewTask(string memory name) external returns (ITrappistServiceManager.Task memory);
     ```*/
     #[allow(non_camel_case_types, non_snake_case)]
     #[derive(Clone)]
@@ -2929,7 +2929,7 @@ pub mod trappistServiceManager {
     #[allow(non_camel_case_types, non_snake_case)]
     #[derive(Clone)]
     pub struct createNewTaskReturn {
-        pub _0: <ItrappistServiceManager::Task as alloy::sol_types::SolType>::RustType,
+        pub _0: <ITrappistServiceManager::Task as alloy::sol_types::SolType>::RustType,
     }
     #[allow(non_camel_case_types, non_snake_case, clippy::style)]
     const _: () = {
@@ -2965,10 +2965,10 @@ pub mod trappistServiceManager {
         }
         {
             #[doc(hidden)]
-            type UnderlyingSolTuple<'a> = (ItrappistServiceManager::Task,);
+            type UnderlyingSolTuple<'a> = (ITrappistServiceManager::Task,);
             #[doc(hidden)]
             type UnderlyingRustTuple<'a> =
-                (<ItrappistServiceManager::Task as alloy::sol_types::SolType>::RustType,);
+                (<ITrappistServiceManager::Task as alloy::sol_types::SolType>::RustType,);
             #[cfg(test)]
             #[allow(dead_code, unreachable_patterns)]
             fn _type_assertion(_t: alloy_sol_types::private::AssertTypeEq<UnderlyingRustTuple>) {
@@ -2998,7 +2998,7 @@ pub mod trappistServiceManager {
             type Parameters<'a> = (alloy::sol_types::sol_data::String,);
             type Token<'a> = <Self::Parameters<'a> as alloy_sol_types::SolType>::Token<'a>;
             type Return = createNewTaskReturn;
-            type ReturnTuple<'a> = (ItrappistServiceManager::Task,);
+            type ReturnTuple<'a> = (ITrappistServiceManager::Task,);
             type ReturnToken<'a> = <Self::ReturnTuple<'a> as alloy_sol_types::SolType>::Token<'a>;
             const SIGNATURE: &'static str = "createNewTask(string)";
             const SELECTOR: [u8; 4] = [133u8, 237u8, 248u8, 116u8];
@@ -3801,12 +3801,12 @@ pub mod trappistServiceManager {
     };
     /**Function with signature `respondToTask((string,uint32),uint32,bytes)` and selector `0x3415a49c`.
     ```solidity
-    function respondToTask(ItrappistServiceManager.Task memory task, uint32 referenceTaskIndex, bytes memory signature) external;
+    function respondToTask(ITrappistServiceManager.Task memory task, uint32 referenceTaskIndex, bytes memory signature) external;
     ```*/
     #[allow(non_camel_case_types, non_snake_case)]
     #[derive(Clone)]
     pub struct respondToTaskCall {
-        pub task: <ItrappistServiceManager::Task as alloy::sol_types::SolType>::RustType,
+        pub task: <ITrappistServiceManager::Task as alloy::sol_types::SolType>::RustType,
         pub referenceTaskIndex: u32,
         pub signature: alloy::sol_types::private::Bytes,
     }
@@ -3820,13 +3820,13 @@ pub mod trappistServiceManager {
         {
             #[doc(hidden)]
             type UnderlyingSolTuple<'a> = (
-                ItrappistServiceManager::Task,
+                ITrappistServiceManager::Task,
                 alloy::sol_types::sol_data::Uint<32>,
                 alloy::sol_types::sol_data::Bytes,
             );
             #[doc(hidden)]
             type UnderlyingRustTuple<'a> = (
-                <ItrappistServiceManager::Task as alloy::sol_types::SolType>::RustType,
+                <ITrappistServiceManager::Task as alloy::sol_types::SolType>::RustType,
                 u32,
                 alloy::sol_types::private::Bytes,
             );
@@ -3890,7 +3890,7 @@ pub mod trappistServiceManager {
         #[automatically_derived]
         impl alloy_sol_types::SolCall for respondToTaskCall {
             type Parameters<'a> = (
-                ItrappistServiceManager::Task,
+                ITrappistServiceManager::Task,
                 alloy::sol_types::sol_data::Uint<32>,
                 alloy::sol_types::sol_data::Bytes,
             );
@@ -3909,7 +3909,7 @@ pub mod trappistServiceManager {
             #[inline]
             fn tokenize(&self) -> Self::Token<'_> {
                 (
-                    <ItrappistServiceManager::Task as alloy_sol_types::SolType>::tokenize(
+                    <ITrappistServiceManager::Task as alloy_sol_types::SolType>::tokenize(
                         &self.task,
                     ),
                     <alloy::sol_types::sol_data::Uint<32> as alloy_sol_types::SolType>::tokenize(
@@ -4473,8 +4473,8 @@ pub mod trappistServiceManager {
             }
         }
     };
-    ///Container for all the [`trappistServiceManager`](self) function calls.
-    pub enum trappistServiceManagerCalls {
+    ///Container for all the [`TrappistServiceManager`](self) function calls.
+    pub enum TrappistServiceManagerCalls {
         allTaskHashes(allTaskHashesCall),
         allTaskResponses(allTaskResponsesCall),
         avsDirectory(avsDirectoryCall),
@@ -4495,7 +4495,7 @@ pub mod trappistServiceManager {
         updateAVSMetadataURI(updateAVSMetadataURICall),
     }
     #[automatically_derived]
-    impl trappistServiceManagerCalls {
+    impl TrappistServiceManagerCalls {
         /// All the selectors of this enum.
         ///
         /// Note that the selectors might not be in the same order as the variants.
@@ -4524,8 +4524,8 @@ pub mod trappistServiceManager {
         ];
     }
     #[automatically_derived]
-    impl alloy_sol_types::SolInterface for trappistServiceManagerCalls {
-        const NAME: &'static str = "trappistServiceManagerCalls";
+    impl alloy_sol_types::SolInterface for TrappistServiceManagerCalls {
+        const NAME: &'static str = "TrappistServiceManagerCalls";
         const MIN_DATA_LENGTH: usize = 0usize;
         const COUNT: usize = 18usize;
         #[inline]
@@ -4592,17 +4592,17 @@ pub mod trappistServiceManager {
                 &[u8],
                 bool,
             )
-                -> alloy_sol_types::Result<trappistServiceManagerCalls>] = &[
+                -> alloy_sol_types::Result<TrappistServiceManagerCalls>] = &[
                 {
                     fn allTaskHashes(
                         data: &[u8],
                         validate: bool,
-                    ) -> alloy_sol_types::Result<trappistServiceManagerCalls>
+                    ) -> alloy_sol_types::Result<TrappistServiceManagerCalls>
                     {
                         <allTaskHashesCall as alloy_sol_types::SolCall>::abi_decode_raw(
                             data, validate,
                         )
-                        .map(trappistServiceManagerCalls::allTaskHashes)
+                        .map(TrappistServiceManagerCalls::allTaskHashes)
                     }
                     allTaskHashes
                 },
@@ -4610,14 +4610,14 @@ pub mod trappistServiceManager {
                     fn getOperatorRestakedStrategies(
                         data: &[u8],
                         validate: bool,
-                    ) -> alloy_sol_types::Result<trappistServiceManagerCalls>
+                    ) -> alloy_sol_types::Result<TrappistServiceManagerCalls>
                     {
                         <getOperatorRestakedStrategiesCall as alloy_sol_types::SolCall>::abi_decode_raw(
                                 data,
                                 validate,
                             )
                             .map(
-                                trappistServiceManagerCalls::getOperatorRestakedStrategies,
+                                TrappistServiceManagerCalls::getOperatorRestakedStrategies,
                             )
                     }
                     getOperatorRestakedStrategies
@@ -4626,12 +4626,12 @@ pub mod trappistServiceManager {
                     fn respondToTask(
                         data: &[u8],
                         validate: bool,
-                    ) -> alloy_sol_types::Result<trappistServiceManagerCalls>
+                    ) -> alloy_sol_types::Result<TrappistServiceManagerCalls>
                     {
                         <respondToTaskCall as alloy_sol_types::SolCall>::abi_decode_raw(
                             data, validate,
                         )
-                        .map(trappistServiceManagerCalls::respondToTask)
+                        .map(TrappistServiceManagerCalls::respondToTask)
                     }
                     respondToTask
                 },
@@ -4639,12 +4639,12 @@ pub mod trappistServiceManager {
                     fn setRewardsInitiator(
                         data: &[u8],
                         validate: bool,
-                    ) -> alloy_sol_types::Result<trappistServiceManagerCalls>
+                    ) -> alloy_sol_types::Result<TrappistServiceManagerCalls>
                     {
                         <setRewardsInitiatorCall as alloy_sol_types::SolCall>::abi_decode_raw(
                             data, validate,
                         )
-                        .map(trappistServiceManagerCalls::setRewardsInitiator)
+                        .map(TrappistServiceManagerCalls::setRewardsInitiator)
                     }
                     setRewardsInitiator
                 },
@@ -4652,12 +4652,12 @@ pub mod trappistServiceManager {
                     fn stakeRegistry(
                         data: &[u8],
                         validate: bool,
-                    ) -> alloy_sol_types::Result<trappistServiceManagerCalls>
+                    ) -> alloy_sol_types::Result<TrappistServiceManagerCalls>
                     {
                         <stakeRegistryCall as alloy_sol_types::SolCall>::abi_decode_raw(
                             data, validate,
                         )
-                        .map(trappistServiceManagerCalls::stakeRegistry)
+                        .map(TrappistServiceManagerCalls::stakeRegistry)
                     }
                     stakeRegistry
                 },
@@ -4665,12 +4665,12 @@ pub mod trappistServiceManager {
                     fn avsDirectory(
                         data: &[u8],
                         validate: bool,
-                    ) -> alloy_sol_types::Result<trappistServiceManagerCalls>
+                    ) -> alloy_sol_types::Result<TrappistServiceManagerCalls>
                     {
                         <avsDirectoryCall as alloy_sol_types::SolCall>::abi_decode_raw(
                             data, validate,
                         )
-                        .map(trappistServiceManagerCalls::avsDirectory)
+                        .map(TrappistServiceManagerCalls::avsDirectory)
                     }
                     avsDirectory
                 },
@@ -4678,12 +4678,12 @@ pub mod trappistServiceManager {
                     fn renounceOwnership(
                         data: &[u8],
                         validate: bool,
-                    ) -> alloy_sol_types::Result<trappistServiceManagerCalls>
+                    ) -> alloy_sol_types::Result<TrappistServiceManagerCalls>
                     {
                         <renounceOwnershipCall as alloy_sol_types::SolCall>::abi_decode_raw(
                             data, validate,
                         )
-                        .map(trappistServiceManagerCalls::renounceOwnership)
+                        .map(TrappistServiceManagerCalls::renounceOwnership)
                     }
                     renounceOwnership
                 },
@@ -4691,12 +4691,12 @@ pub mod trappistServiceManager {
                     fn createNewTask(
                         data: &[u8],
                         validate: bool,
-                    ) -> alloy_sol_types::Result<trappistServiceManagerCalls>
+                    ) -> alloy_sol_types::Result<TrappistServiceManagerCalls>
                     {
                         <createNewTaskCall as alloy_sol_types::SolCall>::abi_decode_raw(
                             data, validate,
                         )
-                        .map(trappistServiceManagerCalls::createNewTask)
+                        .map(TrappistServiceManagerCalls::createNewTask)
                     }
                     createNewTask
                 },
@@ -4704,12 +4704,12 @@ pub mod trappistServiceManager {
                     fn latestTaskNum(
                         data: &[u8],
                         validate: bool,
-                    ) -> alloy_sol_types::Result<trappistServiceManagerCalls>
+                    ) -> alloy_sol_types::Result<TrappistServiceManagerCalls>
                     {
                         <latestTaskNumCall as alloy_sol_types::SolCall>::abi_decode_raw(
                             data, validate,
                         )
-                        .map(trappistServiceManagerCalls::latestTaskNum)
+                        .map(TrappistServiceManagerCalls::latestTaskNum)
                     }
                     latestTaskNum
                 },
@@ -4717,10 +4717,10 @@ pub mod trappistServiceManager {
                     fn owner(
                         data: &[u8],
                         validate: bool,
-                    ) -> alloy_sol_types::Result<trappistServiceManagerCalls>
+                    ) -> alloy_sol_types::Result<TrappistServiceManagerCalls>
                     {
                         <ownerCall as alloy_sol_types::SolCall>::abi_decode_raw(data, validate)
-                            .map(trappistServiceManagerCalls::owner)
+                            .map(TrappistServiceManagerCalls::owner)
                     }
                     owner
                 },
@@ -4728,12 +4728,12 @@ pub mod trappistServiceManager {
                     fn registerOperatorToAVS(
                         data: &[u8],
                         validate: bool,
-                    ) -> alloy_sol_types::Result<trappistServiceManagerCalls>
+                    ) -> alloy_sol_types::Result<TrappistServiceManagerCalls>
                     {
                         <registerOperatorToAVSCall as alloy_sol_types::SolCall>::abi_decode_raw(
                             data, validate,
                         )
-                        .map(trappistServiceManagerCalls::registerOperatorToAVS)
+                        .map(TrappistServiceManagerCalls::registerOperatorToAVS)
                     }
                     registerOperatorToAVS
                 },
@@ -4741,12 +4741,12 @@ pub mod trappistServiceManager {
                     fn deregisterOperatorFromAVS(
                         data: &[u8],
                         validate: bool,
-                    ) -> alloy_sol_types::Result<trappistServiceManagerCalls>
+                    ) -> alloy_sol_types::Result<TrappistServiceManagerCalls>
                     {
                         <deregisterOperatorFromAVSCall as alloy_sol_types::SolCall>::abi_decode_raw(
                             data, validate,
                         )
-                        .map(trappistServiceManagerCalls::deregisterOperatorFromAVS)
+                        .map(TrappistServiceManagerCalls::deregisterOperatorFromAVS)
                     }
                     deregisterOperatorFromAVS
                 },
@@ -4754,12 +4754,12 @@ pub mod trappistServiceManager {
                     fn updateAVSMetadataURI(
                         data: &[u8],
                         validate: bool,
-                    ) -> alloy_sol_types::Result<trappistServiceManagerCalls>
+                    ) -> alloy_sol_types::Result<TrappistServiceManagerCalls>
                     {
                         <updateAVSMetadataURICall as alloy_sol_types::SolCall>::abi_decode_raw(
                             data, validate,
                         )
-                        .map(trappistServiceManagerCalls::updateAVSMetadataURI)
+                        .map(TrappistServiceManagerCalls::updateAVSMetadataURI)
                     }
                     updateAVSMetadataURI
                 },
@@ -4767,12 +4767,12 @@ pub mod trappistServiceManager {
                     fn allTaskResponses(
                         data: &[u8],
                         validate: bool,
-                    ) -> alloy_sol_types::Result<trappistServiceManagerCalls>
+                    ) -> alloy_sol_types::Result<TrappistServiceManagerCalls>
                     {
                         <allTaskResponsesCall as alloy_sol_types::SolCall>::abi_decode_raw(
                             data, validate,
                         )
-                        .map(trappistServiceManagerCalls::allTaskResponses)
+                        .map(TrappistServiceManagerCalls::allTaskResponses)
                     }
                     allTaskResponses
                 },
@@ -4780,12 +4780,12 @@ pub mod trappistServiceManager {
                     fn getRestakeableStrategies(
                         data: &[u8],
                         validate: bool,
-                    ) -> alloy_sol_types::Result<trappistServiceManagerCalls>
+                    ) -> alloy_sol_types::Result<TrappistServiceManagerCalls>
                     {
                         <getRestakeableStrategiesCall as alloy_sol_types::SolCall>::abi_decode_raw(
                             data, validate,
                         )
-                        .map(trappistServiceManagerCalls::getRestakeableStrategies)
+                        .map(TrappistServiceManagerCalls::getRestakeableStrategies)
                     }
                     getRestakeableStrategies
                 },
@@ -4793,12 +4793,12 @@ pub mod trappistServiceManager {
                     fn transferOwnership(
                         data: &[u8],
                         validate: bool,
-                    ) -> alloy_sol_types::Result<trappistServiceManagerCalls>
+                    ) -> alloy_sol_types::Result<TrappistServiceManagerCalls>
                     {
                         <transferOwnershipCall as alloy_sol_types::SolCall>::abi_decode_raw(
                             data, validate,
                         )
-                        .map(trappistServiceManagerCalls::transferOwnership)
+                        .map(TrappistServiceManagerCalls::transferOwnership)
                     }
                     transferOwnership
                 },
@@ -4806,12 +4806,12 @@ pub mod trappistServiceManager {
                     fn rewardsInitiator(
                         data: &[u8],
                         validate: bool,
-                    ) -> alloy_sol_types::Result<trappistServiceManagerCalls>
+                    ) -> alloy_sol_types::Result<TrappistServiceManagerCalls>
                     {
                         <rewardsInitiatorCall as alloy_sol_types::SolCall>::abi_decode_raw(
                             data, validate,
                         )
-                        .map(trappistServiceManagerCalls::rewardsInitiator)
+                        .map(TrappistServiceManagerCalls::rewardsInitiator)
                     }
                     rewardsInitiator
                 },
@@ -4819,14 +4819,14 @@ pub mod trappistServiceManager {
                     fn createAVSRewardsSubmission(
                         data: &[u8],
                         validate: bool,
-                    ) -> alloy_sol_types::Result<trappistServiceManagerCalls>
+                    ) -> alloy_sol_types::Result<TrappistServiceManagerCalls>
                     {
                         <createAVSRewardsSubmissionCall as alloy_sol_types::SolCall>::abi_decode_raw(
                                 data,
                                 validate,
                             )
                             .map(
-                                trappistServiceManagerCalls::createAVSRewardsSubmission,
+                                TrappistServiceManagerCalls::createAVSRewardsSubmission,
                             )
                     }
                     createAVSRewardsSubmission
@@ -5007,8 +5007,8 @@ pub mod trappistServiceManager {
             }
         }
     }
-    ///Container for all the [`trappistServiceManager`](self) events.
-    pub enum trappistServiceManagerEvents {
+    ///Container for all the [`TrappistServiceManager`](self) events.
+    pub enum TrappistServiceManagerEvents {
         Initialized(Initialized),
         NewTaskCreated(NewTaskCreated),
         OwnershipTransferred(OwnershipTransferred),
@@ -5016,7 +5016,7 @@ pub mod trappistServiceManager {
         TaskResponded(TaskResponded),
     }
     #[automatically_derived]
-    impl trappistServiceManagerEvents {
+    impl TrappistServiceManagerEvents {
         /// All the selectors of this enum.
         ///
         /// Note that the selectors might not be in the same order as the variants.
@@ -5052,8 +5052,8 @@ pub mod trappistServiceManager {
         ];
     }
     #[automatically_derived]
-    impl alloy_sol_types::SolEventInterface for trappistServiceManagerEvents {
-        const NAME: &'static str = "trappistServiceManagerEvents";
+    impl alloy_sol_types::SolEventInterface for TrappistServiceManagerEvents {
+        const NAME: &'static str = "TrappistServiceManagerEvents";
         const COUNT: usize = 5usize;
         fn decode_raw_log(
             topics: &[alloy_sol_types::Word],
@@ -5104,7 +5104,7 @@ pub mod trappistServiceManager {
         }
     }
     #[automatically_derived]
-    impl alloy_sol_types::private::IntoLogData for trappistServiceManagerEvents {
+    impl alloy_sol_types::private::IntoLogData for TrappistServiceManagerEvents {
         fn to_log_data(&self) -> alloy_sol_types::private::LogData {
             match self {
                 Self::Initialized(inner) => {
@@ -5145,9 +5145,9 @@ pub mod trappistServiceManager {
         }
     }
     use alloy::contract as alloy_contract;
-    /**Creates a new wrapper around an on-chain [`trappistServiceManager`](self) contract instance.
+    /**Creates a new wrapper around an on-chain [`TrappistServiceManager`](self) contract instance.
 
-    See the [wrapper's documentation](`trappistServiceManagerInstance`) for more details.*/
+    See the [wrapper's documentation](`TrappistServiceManagerInstance`) for more details.*/
     #[inline]
     pub const fn new<
         T: alloy_contract::private::Transport + ::core::clone::Clone,
@@ -5156,8 +5156,8 @@ pub mod trappistServiceManager {
     >(
         address: alloy_sol_types::private::Address,
         provider: P,
-    ) -> trappistServiceManagerInstance<T, P, N> {
-        trappistServiceManagerInstance::<T, P, N>::new(address, provider)
+    ) -> TrappistServiceManagerInstance<T, P, N> {
+        TrappistServiceManagerInstance::<T, P, N>::new(address, provider)
     }
     /**Deploys this contract using the given `provider` and constructor arguments, if any.
 
@@ -5175,9 +5175,9 @@ pub mod trappistServiceManager {
         _stakeRegistry: alloy::sol_types::private::Address,
         _delegationManager: alloy::sol_types::private::Address,
     ) -> impl ::core::future::Future<
-        Output = alloy_contract::Result<trappistServiceManagerInstance<T, P, N>>,
+        Output = alloy_contract::Result<TrappistServiceManagerInstance<T, P, N>>,
     > {
-        trappistServiceManagerInstance::<T, P, N>::deploy(
+        TrappistServiceManagerInstance::<T, P, N>::deploy(
             provider,
             _avsDirectory,
             _stakeRegistry,
@@ -5200,17 +5200,17 @@ pub mod trappistServiceManager {
         _stakeRegistry: alloy::sol_types::private::Address,
         _delegationManager: alloy::sol_types::private::Address,
     ) -> alloy_contract::RawCallBuilder<T, P, N> {
-        trappistServiceManagerInstance::<T, P, N>::deploy_builder(
+        TrappistServiceManagerInstance::<T, P, N>::deploy_builder(
             provider,
             _avsDirectory,
             _stakeRegistry,
             _delegationManager,
         )
     }
-    /**A [`trappistServiceManager`](self) instance.
+    /**A [`TrappistServiceManager`](self) instance.
 
     Contains type-safe methods for interacting with an on-chain instance of the
-    [`trappistServiceManager`](self) contract located at a given `address`, using a given
+    [`TrappistServiceManager`](self) contract located at a given `address`, using a given
     provider `P`.
 
     If the contract bytecode is available (see the [`sol!`](alloy_sol_types::sol!)
@@ -5219,16 +5219,16 @@ pub mod trappistServiceManager {
 
     See the [module-level documentation](self) for all the available methods.*/
     #[derive(Clone)]
-    pub struct trappistServiceManagerInstance<T, P, N = alloy_contract::private::Ethereum> {
+    pub struct TrappistServiceManagerInstance<T, P, N = alloy_contract::private::Ethereum> {
         address: alloy_sol_types::private::Address,
         provider: P,
         _network_transport: ::core::marker::PhantomData<(N, T)>,
     }
     #[automatically_derived]
-    impl<T, P, N> ::core::fmt::Debug for trappistServiceManagerInstance<T, P, N> {
+    impl<T, P, N> ::core::fmt::Debug for TrappistServiceManagerInstance<T, P, N> {
         #[inline]
         fn fmt(&self, f: &mut ::core::fmt::Formatter<'_>) -> ::core::fmt::Result {
-            f.debug_tuple("trappistServiceManagerInstance")
+            f.debug_tuple("TrappistServiceManagerInstance")
                 .field(&self.address)
                 .finish()
         }
@@ -5239,11 +5239,11 @@ pub mod trappistServiceManager {
             T: alloy_contract::private::Transport + ::core::clone::Clone,
             P: alloy_contract::private::Provider<T, N>,
             N: alloy_contract::private::Network,
-        > trappistServiceManagerInstance<T, P, N>
+        > TrappistServiceManagerInstance<T, P, N>
     {
-        /**Creates a new wrapper around an on-chain [`trappistServiceManager`](self) contract instance.
+        /**Creates a new wrapper around an on-chain [`TrappistServiceManager`](self) contract instance.
 
-        See the [wrapper's documentation](`trappistServiceManagerInstance`) for more details.*/
+        See the [wrapper's documentation](`TrappistServiceManagerInstance`) for more details.*/
         #[inline]
         pub const fn new(address: alloy_sol_types::private::Address, provider: P) -> Self {
             Self {
@@ -5263,7 +5263,7 @@ pub mod trappistServiceManager {
             _avsDirectory: alloy::sol_types::private::Address,
             _stakeRegistry: alloy::sol_types::private::Address,
             _delegationManager: alloy::sol_types::private::Address,
-        ) -> alloy_contract::Result<trappistServiceManagerInstance<T, P, N>> {
+        ) -> alloy_contract::Result<TrappistServiceManagerInstance<T, P, N>> {
             let call_builder =
                 Self::deploy_builder(provider, _avsDirectory, _stakeRegistry, _delegationManager);
             let contract_address = call_builder.deploy().await?;
@@ -5316,11 +5316,11 @@ pub mod trappistServiceManager {
             &self.provider
         }
     }
-    impl<T, P: ::core::clone::Clone, N> trappistServiceManagerInstance<T, &P, N> {
+    impl<T, P: ::core::clone::Clone, N> TrappistServiceManagerInstance<T, &P, N> {
         /// Clones the provider and returns a new instance with the cloned provider.
         #[inline]
-        pub fn with_cloned_provider(self) -> trappistServiceManagerInstance<T, P, N> {
-            trappistServiceManagerInstance {
+        pub fn with_cloned_provider(self) -> TrappistServiceManagerInstance<T, P, N> {
+            TrappistServiceManagerInstance {
                 address: self.address,
                 provider: ::core::clone::Clone::clone(&self.provider),
                 _network_transport: ::core::marker::PhantomData,
@@ -5333,7 +5333,7 @@ pub mod trappistServiceManager {
             T: alloy_contract::private::Transport + ::core::clone::Clone,
             P: alloy_contract::private::Provider<T, N>,
             N: alloy_contract::private::Network,
-        > trappistServiceManagerInstance<T, P, N>
+        > TrappistServiceManagerInstance<T, P, N>
     {
         /// Creates a new call builder using this contract instance's provider and address.
         ///
@@ -5428,7 +5428,7 @@ pub mod trappistServiceManager {
         ///Creates a new call builder for the [`respondToTask`] function.
         pub fn respondToTask(
             &self,
-            task: <ItrappistServiceManager::Task as alloy::sol_types::SolType>::RustType,
+            task: <ITrappistServiceManager::Task as alloy::sol_types::SolType>::RustType,
             referenceTaskIndex: u32,
             signature: alloy::sol_types::private::Bytes,
         ) -> alloy_contract::SolCallBuilder<T, &P, respondToTaskCall, N> {
@@ -5478,7 +5478,7 @@ pub mod trappistServiceManager {
             T: alloy_contract::private::Transport + ::core::clone::Clone,
             P: alloy_contract::private::Provider<T, N>,
             N: alloy_contract::private::Network,
-        > trappistServiceManagerInstance<T, P, N>
+        > TrappistServiceManagerInstance<T, P, N>
     {
         /// Creates a new event filter using this contract instance's provider and address.
         ///

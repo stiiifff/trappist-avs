@@ -18,7 +18,7 @@ use eigen_utils::{get_provider, get_signer};
 use eyre::Result;
 use trappist_utils::{
     ecdsastakeregistry::ISignatureUtils::SignatureWithSaltAndExpiry,
-    trappistservicemanager::{trappistServiceManager, ItrappistServiceManager::Task},
+    TrappistServiceManager::{TrappistServiceManager, ITrappistServiceManager::Task},
     parse_avs_directory_address, parse_delegation_manager_address,
     parse_trappist_service_manager, parse_stake_registry_address, EigenLayerData,
     trappistData,
@@ -63,7 +63,7 @@ async fn sign_and_response_to_task(
 
     let trappist_contract_address: Address =
         parse_trappist_service_manager("contracts/deployments/trappist/31337.json")?;
-    let trappist_contract = trappistServiceManager::new(trappist_contract_address, &pr);
+    let trappist_contract = TrappistServiceManager::new(trappist_contract_address, &pr);
 
     let response_hash = trappist_contract
         .respondToTask(
@@ -105,8 +105,8 @@ async fn monitor_new_tasks() -> Result<()> {
 
         for log in logs {
             match log.topic0() {
-                Some(&trappistServiceManager::NewTaskCreated::SIGNATURE_HASH) => {
-                    let trappistServiceManager::NewTaskCreated { taskIndex, task } = log
+                Some(&TrappistServiceManager::NewTaskCreated::SIGNATURE_HASH) => {
+                    let TrappistServiceManager::NewTaskCreated { taskIndex, task } = log
                         .log_decode()
                         .expect("Failed to decode log new task created")
                         .inner
@@ -273,7 +273,7 @@ async fn create_new_task(task_name: &str) -> Result<()> {
         .with_recommended_fillers()
         .wallet(wallet)
         .on_http(Url::from_str(&ANVIL_RPC_URL)?);
-    let trappist_contract = trappistServiceManager::new(trappist_contract_address, pr);
+    let trappist_contract = TrappistServiceManager::new(trappist_contract_address, pr);
 
     let tx = trappist_contract
         .createNewTask(task_name.to_string())
@@ -313,7 +313,7 @@ mod tests {
     use eigen_utils::delegationmanager::DelegationManager::{self, isOperatorReturn};
     use serial_test::serial;
     use std::path::Path;
-    use trappistServiceManager::latestTaskNumReturn;
+    use TrappistServiceManager::latestTaskNumReturn;
     #[tokio::test]
     #[serial]
     async fn test_register_operator() {
@@ -380,7 +380,7 @@ mod tests {
             .unwrap();
         let provider = &get_provider(&ANVIL_RPC_URL);
         let trappist_contract =
-            trappistServiceManager::new(trappist_contract_address, provider);
+            TrappistServiceManager::new(trappist_contract_address, provider);
 
         let latest_task_num = trappist_contract.latestTaskNum().call().await.unwrap();
 

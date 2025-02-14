@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import {Script} from "forge-std/Script.sol";
 import {console2} from "forge-std/Test.sol";
-import {trappistDeploymentLib} from "./utils/trappistDeploymentLib.sol";
+import {TrappistDeploymentLib} from "./utils/TrappistDeploymentLib.sol";
 import {CoreDeploymentLib} from "./utils/CoreDeploymentLib.sol";
 import {UpgradeableProxyLib} from "./utils/UpgradeableProxyLib.sol";
 import {StrategyBase} from "@eigenlayer/contracts/strategies/StrategyBase.sol";
@@ -34,15 +34,15 @@ contract trappistDeployer is Script, Test {
     address rewardsInitiator;
     IStrategy trappistStrategy;
     CoreDeploymentLib.DeploymentData coreDeployment;
-    trappistDeploymentLib.DeploymentData trappistDeployment;
-    trappistDeploymentLib.DeploymentConfigData trappistConfig;
+    TrappistDeploymentLib.DeploymentData trappistDeployment;
+    TrappistDeploymentLib.DeploymentConfigData trappistConfig;
     Quorum internal quorum;
     ERC20Mock token;
     function setUp() public virtual {
         deployer = vm.rememberKey(vm.envUint("PRIVATE_KEY"));
         vm.label(deployer, "Deployer");
 
-        trappistConfig = trappistDeploymentLib.readDeploymentConfigValues("config/trappist/", block.chainid);
+        trappistConfig = TrappistDeploymentLib.readDeploymentConfigValues("config/trappist/", block.chainid);
 
 
         coreDeployment = CoreDeploymentLib.readDeploymentJson("deployments/core/", block.chainid);
@@ -66,14 +66,14 @@ contract trappistDeployer is Script, Test {
 
 
         trappistDeployment =
-            trappistDeploymentLib.deployContracts(proxyAdmin, coreDeployment, quorum, rewardsInitiator, rewardsOwner);
+            TrappistDeploymentLib.deployContracts(proxyAdmin, coreDeployment, quorum, rewardsInitiator, rewardsOwner);
 
         trappistDeployment.strategy = address(trappistStrategy);
         trappistDeployment.token = address(token);
 
         vm.stopBroadcast();
         verifyDeployment();
-        trappistDeploymentLib.writeDeploymentJson(trappistDeployment);
+        TrappistDeploymentLib.writeDeploymentJson(trappistDeployment);
     }
 
     function verifyDeployment() internal view {
@@ -81,8 +81,8 @@ contract trappistDeployer is Script, Test {
             trappistDeployment.stakeRegistry != address(0), "StakeRegistry address cannot be zero"
         );
         require(
-            trappistDeployment.trappistServiceManager != address(0),
-            "trappistServiceManager address cannot be zero"
+            trappistDeployment.TrappistServiceManager != address(0),
+            "TrappistServiceManager address cannot be zero"
         );
         require(trappistDeployment.strategy != address(0), "Strategy address cannot be zero");
         require(proxyAdmin != address(0), "ProxyAdmin address cannot be zero");

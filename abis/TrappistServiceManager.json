@@ -147,7 +147,7 @@
       {
         "name": "",
         "type": "tuple",
-        "internalType": "struct ItrappistServiceManager.Task",
+        "internalType": "struct ITrappistServiceManager.Task",
         "components": [
           {
             "name": "name",
@@ -371,7 +371,7 @@
       {
         "name": "task",
         "type": "tuple",
-        "internalType": "struct ItrappistServiceManager.Task",
+        "internalType": "struct ITrappistServiceManager.Task",
         "components": [
           {
             "name": "name",
@@ -504,7 +504,7 @@
         "name": "task",
         "type": "tuple",
         "indexed": false,
-        "internalType": "struct ItrappistServiceManager.Task",
+        "internalType": "struct ITrappistServiceManager.Task",
         "components": [
           {
             "name": "name",
@@ -573,7 +573,7 @@
         "name": "task",
         "type": "tuple",
         "indexed": false,
-        "internalType": "struct ItrappistServiceManager.Task",
+        "internalType": "struct ITrappistServiceManager.Task",
         "components": [
           {
             "name": "name",

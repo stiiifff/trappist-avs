@@ -47,7 +47,7 @@ describe('Operator Functionality', () => {
   let provider: ethers.JsonRpcProvider;
   let signer: ethers.Wallet;
   let delegationManager: ethers.Contract;
-  let trappistServiceManager: ethers.Contract;
+  let TrappistServiceManager: ethers.Contract;
   let ecdsaRegistryContract: ethers.Contract;
   let avsDirectory: ethers.Contract;
 
@@ -63,11 +63,11 @@ describe('Operator Functionality', () => {
 
     const delegationManagerABI = await loadJsonFile(path.join(__dirname, '..', 'abis', 'IDelegationManager.json'));
     const ecdsaRegistryABI = await loadJsonFile(path.join(__dirname, '..', 'abis', 'ECDSAStakeRegistry.json'));
-    const trappistServiceManagerABI = await loadJsonFile(path.join(__dirname, '..', 'abis', 'trappistServiceManager.json'));
+    const TrappistServiceManagerABI = await loadJsonFile(path.join(__dirname, '..', 'abis', 'TrappistServiceManager.json'));
     const avsDirectoryABI = await loadJsonFile(path.join(__dirname, '..', 'abis', 'IAVSDirectory.json'));
 
     delegationManager = new ethers.Contract(deployment.core.addresses.delegation, delegationManagerABI, signer);
-    trappistServiceManager = new ethers.Contract(deployment.trappist.addresses.trappistServiceManager, trappistServiceManagerABI, signer);
+    TrappistServiceManager = new ethers.Contract(deployment.trappist.addresses.TrappistServiceManager, TrappistServiceManagerABI, signer);
     ecdsaRegistryContract = new ethers.Contract(deployment.trappist.addresses.stakeRegistry, ecdsaRegistryABI, signer);
     avsDirectory = new ethers.Contract(deployment.core.addresses.avsDirectory, avsDirectoryABI, signer);
   });
@@ -90,7 +90,7 @@ describe('Operator Functionality', () => {
 
     const operatorDigestHash = await avsDirectory.calculateOperatorAVSRegistrationDigestHash(
       signer.address,
-      await trappistServiceManager.getAddress(),
+      await TrappistServiceManager.getAddress(),
       salt,
       expiry
     );
@@ -116,7 +116,7 @@ describe('Operator Functionality', () => {
   it('should create a new task', async () => {
     const taskName = "Steven";
 
-    const tx = await trappistServiceManager.createNewTask(taskName);
+    const tx = await TrappistServiceManager.createNewTask(taskName);
     await tx.wait();
   });
 
@@ -136,7 +136,7 @@ describe('Operator Functionality', () => {
         [operators, signatures, ethers.toBigInt(taskCreatedBlock)]
     );
 
-    const tx = await trappistServiceManager.respondToTask(
+    const tx = await TrappistServiceManager.respondToTask(
         { name: taskName, taskCreatedBlock: taskCreatedBlock },
         taskIndex,
         signedTask

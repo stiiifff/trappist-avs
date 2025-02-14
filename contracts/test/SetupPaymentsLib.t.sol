@@ -4,15 +4,15 @@ pragma solidity ^0.8.0;
 import "forge-std/Test.sol";
 import "../script/utils/SetupPaymentsLib.sol";
 import "../script/utils/CoreDeploymentLib.sol";
-import "../script/utils/trappistDeploymentLib.sol";
+import "../script/utils/TrappistDeploymentLib.sol";
 import "@eigenlayer/contracts/interfaces/IRewardsCoordinator.sol";
-import "../src/ItrappistServiceManager.sol";
+import "../src/ITrappistServiceManager.sol";
 import "@eigenlayer/contracts/interfaces/IStrategy.sol";
 import "@eigenlayer/contracts/libraries/Merkle.sol";
 import "../script/DeployEigenLayerCore.s.sol";
 import "../script/trappistDeployer.s.sol";
 import {StrategyFactory} from "@eigenlayer/contracts/strategies/StrategyFactory.sol";
-import {trappistTaskManagerSetup} from "test/trappistServiceManager.t.sol";
+import {trappistTaskManagerSetup} from "test/TrappistServiceManager.t.sol";
 import {ECDSAServiceManagerBase} from "@eigenlayer-middleware/src/unaudited/ECDSAServiceManagerBase.sol";
 import {
     Quorum,
@@ -39,7 +39,7 @@ contract SetupPaymentsLibTest is Test, TestConstants, trappistTaskManagerSetup {
 
 
     IRewardsCoordinator public rewardsCoordinator;
-    ItrappistServiceManager public trappistServiceManager;
+    ITrappistServiceManager public TrappistServiceManager;
     IStrategy public strategy;
     address proxyAdmin;
 
@@ -60,12 +60,12 @@ contract SetupPaymentsLibTest is Test, TestConstants, trappistTaskManagerSetup {
         quorum.strategies.push(StrategyParams({strategy: strategy, multiplier: 10_000}));
 
         trappistDeployment =
-            trappistDeploymentLib.deployContracts(proxyAdmin, coreDeployment, quorum, rewardsInitiator, rewardsOwner);
+            TrappistDeploymentLib.deployContracts(proxyAdmin, coreDeployment, quorum, rewardsInitiator, rewardsOwner);
         labelContracts(coreDeployment, trappistDeployment);
 
 
         cheats.prank(rewardsOwner);
-        ECDSAServiceManagerBase(trappistDeployment.trappistServiceManager).setRewardsInitiator(rewardsInitiator);
+        ECDSAServiceManagerBase(trappistDeployment.TrappistServiceManager).setRewardsInitiator(rewardsInitiator);
 
         rewardsCoordinator = IRewardsCoordinator(coreDeployment.rewardsCoordinator);
 
@@ -189,11 +189,11 @@ contract SetupPaymentsLibTest is Test, TestConstants, trappistTaskManagerSetup {
         cheats.warp(startTimestamp + 1);
         
         cheats.prank(rewardsInitiator);
-        mockToken.increaseAllowance(trappistDeployment.trappistServiceManager, amountPerPayment * numPayments);
+        mockToken.increaseAllowance(trappistDeployment.TrappistServiceManager, amountPerPayment * numPayments);
 
         cheats.startPrank(rewardsInitiator);
         SetupPaymentsLib.createAVSRewardsSubmissions(
-            address(trappistDeployment.trappistServiceManager),
+            address(trappistDeployment.TrappistServiceManager),
             address(strategy),
             numPayments,
             amountPerPayment,

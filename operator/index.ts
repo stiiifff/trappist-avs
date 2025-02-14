@@ -22,7 +22,7 @@ const coreDeploymentData = JSON.parse(fs.readFileSync(path.resolve(__dirname, `.
 
 const delegationManagerAddress = coreDeploymentData.addresses.delegation; // todo: reminder to fix the naming of this contract in the deployment file, change to delegationManager
 const avsDirectoryAddress = coreDeploymentData.addresses.avsDirectory;
-const trappistServiceManagerAddress = avsDeploymentData.addresses.trappistServiceManager;
+const TrappistServiceManagerAddress = avsDeploymentData.addresses.TrappistServiceManager;
 const ecdsaStakeRegistryAddress = avsDeploymentData.addresses.stakeRegistry;
 
 
@@ -30,12 +30,12 @@ const ecdsaStakeRegistryAddress = avsDeploymentData.addresses.stakeRegistry;
 // Load ABIs
 const delegationManagerABI = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../abis/IDelegationManager.json'), 'utf8'));
 const ecdsaRegistryABI = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../abis/ECDSAStakeRegistry.json'), 'utf8'));
-const trappistServiceManagerABI = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../abis/trappistServiceManager.json'), 'utf8'));
+const TrappistServiceManagerABI = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../abis/TrappistServiceManager.json'), 'utf8'));
 const avsDirectoryABI = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../abis/IAVSDirectory.json'), 'utf8'));
 
 // Initialize contract objects from ABIs
 const delegationManager = new ethers.Contract(delegationManagerAddress, delegationManagerABI, wallet);
-const trappistServiceManager = new ethers.Contract(trappistServiceManagerAddress, trappistServiceManagerABI, wallet);
+const TrappistServiceManager = new ethers.Contract(TrappistServiceManagerAddress, TrappistServiceManagerABI, wallet);
 const ecdsaRegistryContract = new ethers.Contract(ecdsaStakeRegistryAddress, ecdsaRegistryABI, wallet);
 const avsDirectory = new ethers.Contract(avsDirectoryAddress, avsDirectoryABI, wallet);
 
@@ -55,7 +55,7 @@ const signAndRespondToTask = async (taskIndex: number, taskCreatedBlock: number,
         [operators, signatures, ethers.toBigInt(await provider.getBlockNumber()-1)]
     );
 
-    const tx = await trappistServiceManager.respondToTask(
+    const tx = await TrappistServiceManager.respondToTask(
         { name: taskName, taskCreatedBlock: taskCreatedBlock },
         taskIndex,
         signedTask
@@ -92,7 +92,7 @@ const registerOperator = async () => {
     // Calculate the digest hash, which is a unique value representing the operator, avs, unique value (salt) and expiration date.
     const operatorDigestHash = await avsDirectory.calculateOperatorAVSRegistrationDigestHash(
         wallet.address, 
-        await trappistServiceManager.getAddress(), 
+        await TrappistServiceManager.getAddress(), 
         salt, 
         expiry
     );
@@ -121,9 +121,9 @@ const registerOperator = async () => {
 
 const monitorNewTasks = async () => {
     //console.log(`Creating new task "EigenWorld"`);
-    //await trappistServiceManager.createNewTask("EigenWorld");
+    //await TrappistServiceManager.createNewTask("EigenWorld");
 
-    trappistServiceManager.on("NewTaskCreated", async (taskIndex: number, task: any) => {
+    TrappistServiceManager.on("NewTaskCreated", async (taskIndex: number, task: any) => {
         console.log(`New task detected: Hello, ${task.name}`);
         await signAndRespondToTask(taskIndex, task.taskCreatedBlock, task.name);
     });

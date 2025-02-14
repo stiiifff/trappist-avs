@@ -11,10 +11,10 @@ const wallet = new ethers.Wallet(process.env.PRIVATE_KEY!, provider);
 let chainId = 31337;
 
 const avsDeploymentData = JSON.parse(fs.readFileSync(path.resolve(__dirname, `../contracts/deployments/trappist/${chainId}.json`), 'utf8'));
-const trappistServiceManagerAddress = avsDeploymentData.addresses.trappistServiceManager;
-const trappistServiceManagerABI = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../abis/trappistServiceManager.json'), 'utf8'));
+const TrappistServiceManagerAddress = avsDeploymentData.addresses.TrappistServiceManager;
+const TrappistServiceManagerABI = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../abis/TrappistServiceManager.json'), 'utf8'));
 // Initialize contract objects from ABIs
-const trappistServiceManager = new ethers.Contract(trappistServiceManagerAddress, trappistServiceManagerABI, wallet);
+const TrappistServiceManager = new ethers.Contract(TrappistServiceManagerAddress, TrappistServiceManagerABI, wallet);
 
 
 // Function to generate random names
@@ -30,7 +30,7 @@ function generateRandomName(): string {
 async function createNewTask(taskName: string) {
   try {
     // Send a transaction to the createNewTask function
-    const tx = await trappistServiceManager.createNewTask(taskName);
+    const tx = await TrappistServiceManager.createNewTask(taskName);
     
     // Wait for the transaction to be mined
     const receipt = await tx.wait();

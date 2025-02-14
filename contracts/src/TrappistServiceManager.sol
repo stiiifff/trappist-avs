@@ -8,7 +8,7 @@ import {IServiceManager} from "@eigenlayer-middleware/src/interfaces/IServiceMan
 import {ECDSAUpgradeable} from
     "@openzeppelin-upgrades/contracts/utils/cryptography/ECDSAUpgradeable.sol";
 import {IERC1271Upgradeable} from "@openzeppelin-upgrades/contracts/interfaces/IERC1271Upgradeable.sol";
-import {ItrappistServiceManager} from "./ItrappistServiceManager.sol";
+import {ITrappistServiceManager} from "./ITrappistServiceManager.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "@eigenlayer/contracts/interfaces/IRewardsCoordinator.sol";
 import {TransparentUpgradeableProxy} from "@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol";
@@ -17,7 +17,7 @@ import {TransparentUpgradeableProxy} from "@openzeppelin/contracts/proxy/transpa
  * @title Primary entrypoint for procuring services from trappist.
  * @author Eigen Labs, Inc.
  */
-contract trappistServiceManager is ECDSAServiceManagerBase, ItrappistServiceManager {
+contract TrappistServiceManager is ECDSAServiceManagerBase, ITrappistServiceManager {
     using ECDSAUpgradeable for bytes32;
 
     uint32 public latestTaskNum;

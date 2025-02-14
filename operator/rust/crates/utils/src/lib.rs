@@ -1,6 +1,6 @@
 #![cfg(not(doctest))]
 #[allow(clippy::all, clippy::pedantic, unused_imports)]
-pub mod trappistservicemanager;
+pub mod TrappistServiceManager;
 
 #[allow(clippy::all, clippy::pedantic, unused_imports)]
 pub mod ecdsastakeregistry;
@@ -28,9 +28,9 @@ struct LastUpdate {
 pub struct trappistAddresses {
     #[serde(rename = "proxyAdmin")]
     _proxy_admin: String,
-    #[serde(rename = "trappistServiceManager")]
+    #[serde(rename = "TrappistServiceManager")]
     pub trappist_service_manager: String,
-    #[serde(rename = "trappistServiceManagerImpl")]
+    #[serde(rename = "TrappistServiceManagerImpl")]
     trappist_service_manager_impl: String,
     #[serde(rename = "stakeRegistry")]
     pub stake_registry: String,

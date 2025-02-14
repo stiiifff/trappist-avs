@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.12;
 
-import {trappistServiceManager} from "../src/trappistServiceManager.sol";
+import {TrappistServiceManager} from "../src/TrappistServiceManager.sol";
 import {MockAVSDeployer} from "@eigenlayer-middleware/test/utils/MockAVSDeployer.sol";
 import {ECDSAStakeRegistry} from "@eigenlayer-middleware/src/unaudited/ECDSAStakeRegistry.sol";
 import {Vm} from "forge-std/Vm.sol";
 import {console2} from "forge-std/Test.sol";
-import {trappistDeploymentLib} from "../script/utils/trappistDeploymentLib.sol";
+import {TrappistDeploymentLib} from "../script/utils/TrappistDeploymentLib.sol";
 import {CoreDeploymentLib} from "../script/utils/CoreDeploymentLib.sol";
 import {UpgradeableProxyLib} from "../script/utils/UpgradeableProxyLib.sol";
 import {ERC20Mock} from "./ERC20Mock.sol";
@@ -23,7 +23,7 @@ import {ISignatureUtils} from "@eigenlayer/contracts/interfaces/ISignatureUtils.
 import {AVSDirectory} from "@eigenlayer/contracts/core/AVSDirectory.sol";
 import {IAVSDirectory} from "@eigenlayer/contracts/interfaces/IAVSDirectory.sol";
 import {Test, console2 as console} from "forge-std/Test.sol";
-import {ItrappistServiceManager} from "../src/ItrappistServiceManager.sol";
+import {ITrappistServiceManager} from "../src/ITrappistServiceManager.sol";
 import {ECDSAUpgradeable} from
     "@openzeppelin-upgrades/contracts/utils/cryptography/ECDSAUpgradeable.sol";
 
@@ -47,7 +47,7 @@ contract trappistTaskManagerSetup is Test {
     TrafficGenerator internal generator;
     AVSOwner internal owner;
 
-    trappistDeploymentLib.DeploymentData internal trappistDeployment;
+    TrappistDeploymentLib.DeploymentData internal trappistDeployment;
     CoreDeploymentLib.DeploymentData internal coreDeployment;
     CoreDeploymentLib.DeploymentConfigData coreConfigData;
 
@@ -71,7 +71,7 @@ contract trappistTaskManagerSetup is Test {
         quorum.strategies.push(StrategyParams({strategy: strategy, multiplier: 10_000}));
 
         trappistDeployment =
-            trappistDeploymentLib.deployContracts(proxyAdmin, coreDeployment, quorum, owner.key.addr, owner.key.addr);
+            TrappistDeploymentLib.deployContracts(proxyAdmin, coreDeployment, quorum, owner.key.addr, owner.key.addr);
         labelContracts(coreDeployment, trappistDeployment);
     }
 
@@ -90,7 +90,7 @@ contract trappistTaskManagerSetup is Test {
 
     function labelContracts(
         CoreDeploymentLib.DeploymentData memory coreDeployment,
-        trappistDeploymentLib.DeploymentData memory trappistDeployment
+        TrappistDeploymentLib.DeploymentData memory trappistDeployment
     ) internal {
         vm.label(coreDeployment.delegationManager, "DelegationManager");
         vm.label(coreDeployment.avsDirectory, "AVSDirectory");
@@ -101,7 +101,7 @@ contract trappistTaskManagerSetup is Test {
         vm.label(coreDeployment.pauserRegistry, "PauserRegistry");
         vm.label(coreDeployment.strategyFactory, "StrategyFactory");
         vm.label(coreDeployment.strategyBeacon, "StrategyBeacon");
-        vm.label(trappistDeployment.trappistServiceManager, "trappistServiceManager");
+        vm.label(trappistDeployment.TrappistServiceManager, "TrappistServiceManager");
         vm.label(trappistDeployment.stakeRegistry, "StakeRegistry");
     }
 
@@ -169,7 +169,7 @@ contract trappistTaskManagerSetup is Test {
 
         bytes32 operatorRegistrationDigestHash = avsDirectory
             .calculateOperatorAVSRegistrationDigestHash(
-            operator.key.addr, address(trappistDeployment.trappistServiceManager), salt, expiry
+            operator.key.addr, address(trappistDeployment.TrappistServiceManager), salt, expiry
         );
 
         bytes memory signature = signWithOperatorKey(operator, operatorRegistrationDigestHash);
@@ -248,16 +248,16 @@ contract trappistTaskManagerSetup is Test {
     }
 
     function createTask(TrafficGenerator memory generator, string memory taskName) internal {
-        ItrappistServiceManager trappistServiceManager =
-            ItrappistServiceManager(trappistDeployment.trappistServiceManager);
+        ITrappistServiceManager TrappistServiceManager =
+            ITrappistServiceManager(trappistDeployment.TrappistServiceManager);
 
         vm.prank(generator.key.addr);
-        trappistServiceManager.createNewTask(taskName);
+        TrappistServiceManager.createNewTask(taskName);
     }
 
     function respondToTask(
         Operator memory operator,
-        ItrappistServiceManager.Task memory task,
+        ITrappistServiceManager.Task memory task,
         uint32 referenceTaskIndex
     ) internal {
         // Create the message hash
@@ -272,13 +272,13 @@ contract trappistTaskManagerSetup is Test {
 
         bytes memory signedTask = abi.encode(operators, signatures, uint32(block.number));
 
-        ItrappistServiceManager(trappistDeployment.trappistServiceManager).respondToTask(
+        ITrappistServiceManager(trappistDeployment.TrappistServiceManager).respondToTask(
             task, referenceTaskIndex, signedTask
         );
     }
 }
 
-contract trappistServiceManagerInitialization is trappistTaskManagerSetup {
+contract TrappistServiceManagerInitialization is trappistTaskManagerSetup {
     function testInitialization() public view {
         ECDSAStakeRegistry stakeRegistry = ECDSAStakeRegistry(trappistDeployment.stakeRegistry);
 
@@ -293,8 +293,8 @@ contract trappistServiceManagerInitialization is trappistTaskManagerSetup {
 
         assertTrue(trappistDeployment.stakeRegistry != address(0), "StakeRegistry not deployed");
         assertTrue(
-            trappistDeployment.trappistServiceManager != address(0),
-            "trappistServiceManager not deployed"
+            trappistDeployment.TrappistServiceManager != address(0),
+            "TrappistServiceManager not deployed"
         );
         assertTrue(coreDeployment.delegationManager != address(0), "DelegationManager not deployed");
         assertTrue(coreDeployment.avsDirectory != address(0), "AVSDirectory not deployed");
@@ -312,7 +312,7 @@ contract RegisterOperator is trappistTaskManagerSetup {
 
     IDelegationManager internal delegationManager;
     AVSDirectory internal avsDirectory;
-    ItrappistServiceManager internal sm;
+    ITrappistServiceManager internal sm;
     ECDSAStakeRegistry internal stakeRegistry;
 
     function setUp() public virtual override {
@@ -320,7 +320,7 @@ contract RegisterOperator is trappistTaskManagerSetup {
         /// Setting to internal state for convenience
         delegationManager = IDelegationManager(coreDeployment.delegationManager);
         avsDirectory = AVSDirectory(coreDeployment.avsDirectory);
-        sm = ItrappistServiceManager(trappistDeployment.trappistServiceManager);
+        sm = ITrappistServiceManager(trappistDeployment.TrappistServiceManager);
         stakeRegistry = ECDSAStakeRegistry(trappistDeployment.stakeRegistry);
 
         addStrategy(address(mockToken));
@@ -368,18 +368,18 @@ contract RegisterOperator is trappistTaskManagerSetup {
 }
 
 contract CreateTask is trappistTaskManagerSetup {
-    ItrappistServiceManager internal sm;
+    ITrappistServiceManager internal sm;
 
     function setUp() public override {
         super.setUp();
-        sm = ItrappistServiceManager(trappistDeployment.trappistServiceManager);
+        sm = ITrappistServiceManager(trappistDeployment.TrappistServiceManager);
     }
 
     function testCreateTask() public {
         string memory taskName = "Test Task";
 
         vm.prank(generator.key.addr);
-        ItrappistServiceManager.Task memory newTask = sm.createNewTask(taskName);
+        ITrappistServiceManager.Task memory newTask = sm.createNewTask(taskName);
 
         require(sha256(abi.encodePacked(newTask.name)) == sha256(abi.encodePacked(taskName)), "Task name not set correctly");
         require(newTask.taskCreatedBlock == uint32(block.number), "Task created block not set correctly");
@@ -395,7 +395,7 @@ contract RespondToTask is trappistTaskManagerSetup {
 
     IDelegationManager internal delegationManager;
     AVSDirectory internal avsDirectory;
-    ItrappistServiceManager internal sm;
+    ITrappistServiceManager internal sm;
     ECDSAStakeRegistry internal stakeRegistry;
 
     function setUp() public override {
@@ -403,7 +403,7 @@ contract RespondToTask is trappistTaskManagerSetup {
 
         delegationManager = IDelegationManager(coreDeployment.delegationManager);
         avsDirectory = AVSDirectory(coreDeployment.avsDirectory);
-        sm = ItrappistServiceManager(trappistDeployment.trappistServiceManager);
+        sm = ITrappistServiceManager(trappistDeployment.TrappistServiceManager);
         stakeRegistry = ECDSAStakeRegistry(trappistDeployment.stakeRegistry);
 
         addStrategy(address(mockToken));
@@ -425,7 +425,7 @@ contract RespondToTask is trappistTaskManagerSetup {
 
     function testRespondToTask() public {
         string memory taskName = "TestTask";
-        ItrappistServiceManager.Task memory newTask = sm.createNewTask(taskName);
+        ITrappistServiceManager.Task memory newTask = sm.createNewTask(taskName);
         uint32 taskIndex = sm.latestTaskNum() - 1;
 
         bytes32 messageHash = keccak256(abi.encodePacked("Hello, ", taskName));

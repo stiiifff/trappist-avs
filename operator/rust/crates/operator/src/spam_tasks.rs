@@ -4,7 +4,7 @@ use dotenv::dotenv;
 use eigen_logging::{get_logger, init_logger, log_level::LogLevel};
 use eigen_utils::get_signer;
 use eyre::Result;
-use trappist_utils::{trappistservicemanager::trappistServiceManager, trappistData};
+use trappist_utils::{TrappistServiceManager::TrappistServiceManager, trappistData};
 use once_cell::sync::Lazy;
 use rand::Rng;
 use std::{env, str::FromStr};
@@ -40,7 +40,7 @@ async fn create_new_task(task_name: &str) -> Result<()> {
         parsed.addresses.trappist_service_manager.parse()?;
     let pr = get_signer(&KEY.clone(), ANVIL_RPC_URL);
     let signer = PrivateKeySigner::from_str(&KEY.clone())?;
-    let trappist_contract = trappistServiceManager::new(trappist_contract_address, pr);
+    let trappist_contract = TrappistServiceManager::new(trappist_contract_address, pr);
 
     let tx = trappist_contract
         .createNewTask(task_name.to_string())

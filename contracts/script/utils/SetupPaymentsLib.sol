@@ -17,7 +17,7 @@ library SetupPaymentsLib {
     }
 
     function createAVSRewardsSubmissions(
-        address trappistServiceManager,
+        address TrappistServiceManager,
         address strategy,
         uint256 numPayments,
         uint256 amountPerPayment,
@@ -42,11 +42,11 @@ library SetupPaymentsLib {
 
             rewardsSubmissions[i] = rewardsSubmission;
         }
-        ECDSAServiceManagerBase(trappistServiceManager).createAVSRewardsSubmission(rewardsSubmissions);
+        ECDSAServiceManagerBase(TrappistServiceManager).createAVSRewardsSubmission(rewardsSubmissions);
     }
 
     function createOperatorDirectedAVSRewardsSubmissions(
-        address trappistServiceManager,
+        address TrappistServiceManager,
         address[] memory operators,
         uint256 numOperators,
         address strategy,
@@ -85,7 +85,7 @@ library SetupPaymentsLib {
 
             rewardsSubmissions[i] = rewardsSubmission;
         }
-        ECDSAServiceManagerBase(trappistServiceManager).createOperatorDirectedAVSRewardsSubmission(rewardsSubmissions);
+        ECDSAServiceManagerBase(TrappistServiceManager).createOperatorDirectedAVSRewardsSubmission(rewardsSubmissions);
     }
 
     function processClaim(

@@ -9,14 +9,14 @@ import {console2} from "forge-std/Test.sol";
 import {Vm} from "forge-std/Vm.sol";
 import {stdJson} from "forge-std/StdJson.sol";
 import {ECDSAStakeRegistry} from "@eigenlayer-middleware/src/unaudited/ECDSAStakeRegistry.sol";
-import {trappistServiceManager} from "../../src/trappistServiceManager.sol";
+import {TrappistServiceManager} from "../../src/TrappistServiceManager.sol";
 import {IDelegationManager} from "@eigenlayer/contracts/interfaces/IDelegationManager.sol";
 import {Quorum} from "@eigenlayer-middleware/src/interfaces/IECDSAStakeRegistryEventsAndErrors.sol";
 import {UpgradeableProxyLib} from "./UpgradeableProxyLib.sol";
 import {CoreDeploymentLib} from "./CoreDeploymentLib.sol";
 import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
 
-library trappistDeploymentLib {
+library TrappistDeploymentLib {
     using stdJson for *;
     using Strings for *;
     using UpgradeableProxyLib for address;
@@ -24,7 +24,7 @@ library trappistDeploymentLib {
     Vm internal constant vm = Vm(address(uint160(uint256(keccak256("hevm cheat code")))));
 
     struct DeploymentData {
-        address trappistServiceManager;
+        address TrappistServiceManager;
         address stakeRegistry;
         address strategy;
         address token;
@@ -47,23 +47,23 @@ library trappistDeploymentLib {
         DeploymentData memory result;
 
         // First, deploy upgradeable proxy contracts that will point to the implementations.
-        result.trappistServiceManager = UpgradeableProxyLib.setUpEmptyProxy(proxyAdmin);
+        result.TrappistServiceManager = UpgradeableProxyLib.setUpEmptyProxy(proxyAdmin);
         result.stakeRegistry = UpgradeableProxyLib.setUpEmptyProxy(proxyAdmin);
         // Deploy the implementation contracts, using the proxy contracts as inputs
         address stakeRegistryImpl =
             address(new ECDSAStakeRegistry(IDelegationManager(core.delegationManager)));
-        address trappistServiceManagerImpl = address(
-            new trappistServiceManager(
+        address TrappistServiceManagerImpl = address(
+            new TrappistServiceManager(
                 core.avsDirectory, result.stakeRegistry, core.rewardsCoordinator, core.delegationManager
             )
         );
         // Upgrade contracts
         bytes memory upgradeCall = abi.encodeCall(
-            ECDSAStakeRegistry.initialize, (result.trappistServiceManager, 0, quorum)
+            ECDSAStakeRegistry.initialize, (result.TrappistServiceManager, 0, quorum)
         );
         UpgradeableProxyLib.upgradeAndCall(result.stakeRegistry, stakeRegistryImpl, upgradeCall);
-        upgradeCall = abi.encodeCall(trappistServiceManager.initialize, (owner, rewardsInitiator));
-        UpgradeableProxyLib.upgradeAndCall(result.trappistServiceManager, trappistServiceManagerImpl, upgradeCall);
+        upgradeCall = abi.encodeCall(TrappistServiceManager.initialize, (owner, rewardsInitiator));
+        UpgradeableProxyLib.upgradeAndCall(result.TrappistServiceManager, TrappistServiceManagerImpl, upgradeCall);
 
         return result;
     }
@@ -86,7 +86,7 @@ library trappistDeploymentLib {
 
         DeploymentData memory data;
         /// TODO: 2 Step for reading deployment json.  Read to the core and the AVS data
-        data.trappistServiceManager = json.readAddress(".addresses.trappistServiceManager");
+        data.TrappistServiceManager = json.readAddress(".addresses.TrappistServiceManager");
         data.stakeRegistry = json.readAddress(".addresses.stakeRegistry");
         data.strategy = json.readAddress(".addresses.strategy");
         data.token = json.readAddress(".addresses.token");
@@ -108,7 +108,7 @@ library trappistDeploymentLib {
         DeploymentData memory data
     ) internal {
         address proxyAdmin =
-            address(UpgradeableProxyLib.getProxyAdmin(data.trappistServiceManager));
+            address(UpgradeableProxyLib.getProxyAdmin(data.TrappistServiceManager));
 
         string memory deploymentData = _generateDeploymentJson(data, proxyAdmin);
 
@@ -170,10 +170,10 @@ library trappistDeploymentLib {
         return string.concat(
             '{"proxyAdmin":"',
             proxyAdmin.toHexString(),
-            '","trappistServiceManager":"',
-            data.trappistServiceManager.toHexString(),
-            '","trappistServiceManagerImpl":"',
-            data.trappistServiceManager.getImplementation().toHexString(),
+            '","TrappistServiceManager":"',
+            data.TrappistServiceManager.toHexString(),
+            '","TrappistServiceManagerImpl":"',
+            data.TrappistServiceManager.getImplementation().toHexString(),
             '","stakeRegistry":"',
             data.stakeRegistry.toHexString(),
             '","stakeRegistryImpl":"',

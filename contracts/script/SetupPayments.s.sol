@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import {Script} from "forge-std/Script.sol";
-import {trappistDeploymentLib} from "./utils/trappistDeploymentLib.sol";
+import {TrappistDeploymentLib} from "./utils/TrappistDeploymentLib.sol";
 import {CoreDeploymentLib} from "./utils/CoreDeploymentLib.sol";
 import {SetupPaymentsLib} from "./utils/SetupPaymentsLib.sol";
 import {IRewardsCoordinator} from "@eigenlayer/contracts/interfaces/IRewardsCoordinator.sol";
@@ -27,8 +27,8 @@ contract SetupPayments is Script, Test {
     CoreDeploymentLib.DeploymentData coreDeployment;
     CoreDeploymentLib.DeploymentConfigData coreConfig;
 
-    trappistDeploymentLib.DeploymentData trappistDeployment;
-    trappistDeploymentLib.DeploymentConfigData trappistConfig;
+    TrappistDeploymentLib.DeploymentData trappistDeployment;
+    TrappistDeploymentLib.DeploymentConfigData trappistConfig;
 
     RewardsCoordinator rewardsCoordinator;
     string internal constant paymentInfofilePath = "test/mockData/scratch/payment_info.json";
@@ -63,8 +63,8 @@ contract SetupPayments is Script, Test {
 
         coreDeployment = CoreDeploymentLib.readDeploymentJson("deployments/core/", block.chainid);
         coreConfig = CoreDeploymentLib.readDeploymentConfigValues("config/core/", block.chainid);
-        trappistDeployment = trappistDeploymentLib.readDeploymentJson("deployments/trappist/", block.chainid);
-        trappistConfig = trappistDeploymentLib.readDeploymentConfigValues("config/trappist/", block.chainid);
+        trappistDeployment = TrappistDeploymentLib.readDeploymentJson("deployments/trappist/", block.chainid);
+        trappistConfig = TrappistDeploymentLib.readDeploymentConfigValues("config/trappist/", block.chainid);
 
         rewardsCoordinator = RewardsCoordinator(coreDeployment.rewardsCoordinator);
 
@@ -139,10 +139,10 @@ contract SetupPayments is Script, Test {
 
     function createAVSRewardsSubmissions(uint256 numPayments, uint256 amountPerPayment, uint32 startTimestamp) public {
         ERC20Mock(trappistDeployment.token).mint(trappistConfig.rewardsInitiator, amountPerPayment * numPayments);
-        ERC20Mock(trappistDeployment.token).increaseAllowance(trappistDeployment.trappistServiceManager, amountPerPayment * numPayments);
+        ERC20Mock(trappistDeployment.token).increaseAllowance(trappistDeployment.TrappistServiceManager, amountPerPayment * numPayments);
         uint32 duration = rewardsCoordinator.MAX_REWARDS_DURATION();
         SetupPaymentsLib.createAVSRewardsSubmissions(
-            trappistDeployment.trappistServiceManager,
+            trappistDeployment.TrappistServiceManager,
             trappistDeployment.strategy,
             numPayments,
             amountPerPayment,
@@ -154,7 +154,7 @@ contract SetupPayments is Script, Test {
 
     function createOperatorDirectedAVSRewardsSubmissions(uint256 numPayments, uint256 amountPerPayment, uint32 startTimestamp) public {
         ERC20Mock(trappistDeployment.token).mint(trappistConfig.rewardsInitiator, amountPerPayment * numPayments);
-        ERC20Mock(trappistDeployment.token).increaseAllowance(trappistDeployment.trappistServiceManager, amountPerPayment * numPayments);
+        ERC20Mock(trappistDeployment.token).increaseAllowance(trappistDeployment.TrappistServiceManager, amountPerPayment * numPayments);
         uint32 duration = 0;
         address[] memory operators = new address[](2);
         operators[0] = operator1;
@@ -163,7 +163,7 @@ contract SetupPayments is Script, Test {
         uint256 numOperators = operators.length;
 
         SetupPaymentsLib.createOperatorDirectedAVSRewardsSubmissions(
-            trappistDeployment.trappistServiceManager,
+            trappistDeployment.TrappistServiceManager,
             operators,
             numOperators,
             trappistDeployment.strategy,
