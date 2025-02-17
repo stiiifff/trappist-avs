@@ -24,7 +24,7 @@ import {
 
 import "forge-std/Test.sol";
 
-contract trappistDeployer is Script, Test {
+contract TrappistDeployer is Script, Test {
     using CoreDeploymentLib for *;
     using UpgradeableProxyLib for address;
 

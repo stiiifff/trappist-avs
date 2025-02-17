@@ -10,7 +10,7 @@ import "../src/ITrappistServiceManager.sol";
 import "@eigenlayer/contracts/interfaces/IStrategy.sol";
 import "@eigenlayer/contracts/libraries/Merkle.sol";
 import "../script/DeployEigenLayerCore.s.sol";
-import "../script/trappistDeployer.s.sol";
+import "../script/TrappistDeployer.s.sol";
 import {StrategyFactory} from "@eigenlayer/contracts/strategies/StrategyFactory.sol";
 import {trappistTaskManagerSetup} from "test/TrappistServiceManager.t.sol";
 import {ECDSAServiceManagerBase} from "@eigenlayer-middleware/src/unaudited/ECDSAServiceManagerBase.sol";
